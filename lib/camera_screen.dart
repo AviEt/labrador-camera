@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'gallery_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -95,6 +95,10 @@ class _CameraScreenState extends State<CameraScreen> {
                     setState(() {
                       capturedImages.add(File(xFile.path));
                     });
+                    if (Platform.isIOS) {
+                      await ImageGallerySaver.saveFile(xFile.path,
+                          isReturnPathOfIOS: true);
+                    }
                   },
                   child: Container(
                     height: 60,
